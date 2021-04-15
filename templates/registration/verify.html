@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}{% endblock title %}
 {% block content %}
 <form action="" method="post">{% csrf_token %}
-    <input type="text" name="phone" required>
+    {{user.phone}}
+    {{user.otp}}
+    <input type="text" name='otp'>
     <input type="submit">
 </form>
 {% endblock content %}

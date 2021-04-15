@@ -14,4 +14,4 @@ class User(AbstractUser):
 
     objects = PhoneUserManager()
     REQUIRED_FIELDS = []
-    # backends = ''
+    backend = 'account.backends.PhoneBackend'
