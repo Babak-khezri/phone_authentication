@@ -1,5 +1,5 @@
 from account import otp_handler
-from django.shortcuts import render, HttpResponseRedirect,get_object_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .forms import RegisterForm
 from django.contrib.auth import login
 from django.urls import reverse
@@ -19,7 +19,7 @@ def register_view(request):
                 user.otp = otp
                 user.save()
                 request.session['user_phone'] = user.phone
-                return HttpResponseRedirect(reverse('verify'))
+                return HttpResponseRedirect(reverse('account:verify'))
 
         except User.DoesNotExist:
             form = RegisterForm(request.POST)
@@ -30,25 +30,23 @@ def register_view(request):
                 user.otp = otp
                 user.save()
                 request.session['user_phone'] = user.phone
-                return HttpResponseRedirect(reverse('verify'))
+                return HttpResponseRedirect(reverse('account:verify'))
 
     return render(request, 'registration/register.html', {'form': form})
 
 
 def verify_view(request):
     phone = request.session.get('user_phone')
-    user = get_object_or_404(User,phone=phone)
+    user = get_object_or_404(User, phone=phone)
     if request.method == 'POST':
         otp = request.POST.get('otp')
-        print('her' ,otp_handler.check_otp_expiration(user.phone))
-        if otp_handler.check_otp_expiration :
+        if otp_handler.check_otp_expiration(user.phone):
             if user.otp == int(otp):
                 user.is_active = True
                 user.save()
-                login(request,user)
-                return HttpResponseRedirect(reverse('dashboard'))
-
-    return render(request, 'registration/verify.html',{'user':user})
+                login(request, user)
+                return HttpResponseRedirect(reverse('account:dashboard'))
+    return render(request, 'registration/verify.html', {'user': user})
 
 
 def dashboard_view(request):

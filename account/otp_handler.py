@@ -16,8 +16,9 @@ def check_otp_expiration(phone):
         user = User.objects.get(phone=phone)
         now = datetime.now()
         otp_time = user.otp_create_time
-        passed_time = now - otp_time
-        print(passed_time)
-        return False
+        if (now - otp_time).seconds > 120:
+            return False
+        return True
+
     except User.DoesNotExist:
         return False

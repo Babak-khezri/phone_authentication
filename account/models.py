@@ -8,7 +8,7 @@ class User(AbstractUser):
     username = None
     phone = models.CharField(max_length=11, unique=True)
     otp = models.PositiveBigIntegerField(blank=True, null=True)
-    otp_create_time = models.DateTimeField(auto_now_add=True)
+    otp_create_time = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'phone'
 

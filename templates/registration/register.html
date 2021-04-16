@@ -1,8 +1,63 @@
-{% extends 'base.html' %}
-{% block title %}{% endblock title %}
-{% block content %}
-<form action="" method="post">{% csrf_token %}
-    <input type="text" name="phone" required>
-    <input type="submit">
-</form>
-{% endblock content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		href="{% static 'registration/login/vendor/bootstrap/css/bootstrap.min.css' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		href="{% static 'registration/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/vendor/animate/animate.css' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		href="{% static 'registration/login/vendor/css-hamburgers/hamburgers.min.css' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/vendor/select2/select2.min.css' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/login/css/main.css'%}">
+	<!-- phone input -->
+	<link rel="stylesheet" href="{% static 'registration/phone_input/css/intlTelInput.css'%}">
+	<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="{% static 'registration/login/images/img-01.png'%}" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form" action method="POST">{% csrf_token %}
+					<span class="login100-form-title">
+						Your phone number
+						<p>Please confirm your country code and enter your phone number.</p>
+					</span>
+					<div class="wrap-input100 validate-input">
+						<input id="phone" class="input100 w-100" name="phone" type="tel">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn mx-5">
+							NEXT
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'registration/phone_input/js/intlTelInput.js'%}"></script>
+	<script>
+		var input = document.querySelector("#phone");
+		window.intlTelInput(input, {
+			utilsScript: "{% static 'registration/phone_input/js/utils.js'%}",
+		});
+	</script>
+</body>
+</html>
